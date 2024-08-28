@@ -18,7 +18,7 @@ def uri(x):
 
 def png(x):
     with by() as output:
-        x.save(output, 'PNG')
+        x.save(output, 'PNG', optimize=True)
         slika = output.getvalue()
     return slika
 
@@ -34,8 +34,7 @@ def index():
 @app.route('/post-colors', methods=['POST'])
 def post_colors():
     colors = dict(request.form)
-    colors_list = list(colors.keys())
-    transparency = True if 'transparency' in colors_list else False
+    transparency = 'transparency' in colors
     if transparency: colors.pop('transparency')
     palette = return_palette(colors)
     img_new = im.new('P',(w,h))
